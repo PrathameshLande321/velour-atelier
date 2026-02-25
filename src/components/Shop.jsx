@@ -371,77 +371,120 @@ const formatCardNumber = (value) => {
 
       {/* ================= PRODUCT DETAIL MODAL ================= */}
 
-      <AnimatePresence>
-        {selected && (
-          <>
-            <motion.div
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[55]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelected(null)}
+ {/* ================= PRODUCT DETAIL MODAL ================= */}
+
+<AnimatePresence>
+  {selected && (
+    <>
+      <motion.div
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[55]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        onClick={() => setSelected(null)}
+      />
+
+      <motion.div
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        transition={{ duration: 0.35 }}
+        className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6"
+      >
+        <div
+          className="
+          relative bg-white 
+          w-full max-w-5xl 
+          rounded-3xl 
+          shadow-[0_40px_80px_rgba(0,0,0,0.25)] 
+          overflow-hidden
+          max-h-[95vh] overflow-y-auto
+          grid grid-cols-1 md:grid-cols-2
+        "
+        >
+          {/* CLOSE BUTTON */}
+        <button
+  onClick={() => setSelected(null)}
+  className="
+    absolute 
+    top-3 right-3
+    sm:top-6 sm:right-6
+    w-8 h-8 sm:w-10 sm:h-10
+    bg-white
+    rounded-full
+    shadow-md
+    flex items-center justify-center
+    text-base sm:text-xl
+    text-gray-600 hover:text-black
+    transition
+    z-50
+  "
+>
+  ×
+</button>
+
+          {/* IMAGE SIDE */}
+          <div className="bg-[#f4efe7] flex items-center justify-center p-6 sm:p-10">
+            <motion.img
+              src={selected.image}
+              alt={selected.name}
+              initial={{ scale: 1.05 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.6 }}
+              className="
+                w-full 
+                max-h-[280px] 
+                sm:max-h-[420px] 
+                object-contain
+              "
             />
+          </div>
 
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.35 }}
-              className="fixed inset-0 z-[60] flex items-center justify-center px-6"
+          {/* CONTENT SIDE */}
+          <div className="p-6 sm:p-12 flex flex-col justify-center">
+            <h2 className="text-2xl sm:text-3xl font-[Playfair_Display] mb-4">
+              {selected.name}
+            </h2>
+
+            <p className="text-gray-600 mb-6 leading-relaxed text-sm sm:text-base">
+              {selected.description}
+            </p>
+
+            <div className="bg-[#f4efe7] p-5 sm:p-6 rounded-2xl mb-8">
+              <h4 className="font-semibold mb-2 text-sm sm:text-base">
+                Ingredients Insight
+              </h4>
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                Silk Protein Matrix, Deep Hydration Blend,
+                Gloss Enhancement Complex.
+              </p>
+            </div>
+
+            <p className="text-2xl sm:text-3xl text-[#C6A86E] font-semibold mb-6">
+              ${selected.price}
+            </p>
+
+            <button
+              onClick={() => addToCart(selected)}
+              className="
+                bg-[#C6A86E] 
+                text-white 
+                py-4 
+                rounded-full 
+                tracking-widest 
+                text-sm 
+                hover:opacity-90 
+                transition
+              "
             >
-              <div className="relative bg-white max-w-5xl w-full rounded-3xl shadow-[0_40px_80px_rgba(0,0,0,0.25)] overflow-hidden grid md:grid-cols-2">
-
-                <button
-                  onClick={() => setSelected(null)}
-                  className="absolute top-6 right-6 text-2xl text-gray-600 hover:text-black transition"
-                >
-                  ×
-                </button>
-
-                <div className="bg-[#f4efe7] flex items-center justify-center p-10">
-                  <motion.img
-                    src={selected.image}
-                    alt={selected.name}
-                    initial={{ scale: 1.05 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.6 }}
-                    className="max-h-[420px] object-contain"
-                  />
-                </div>
-
-                <div className="p-12 flex flex-col justify-center">
-                  <h2 className="text-3xl font-[Playfair_Display] mb-4">
-                    {selected.name}
-                  </h2>
-
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {selected.description}
-                  </p>
-
-                  <div className="bg-[#f4efe7] p-6 rounded-2xl mb-8">
-                    <h4 className="font-semibold mb-2">Ingredients Insight</h4>
-                    <p className="text-sm text-gray-600">
-                      Silk Protein Matrix, Deep Hydration Blend,
-                      Gloss Enhancement Complex.
-                    </p>
-                  </div>
-
-                  <p className="text-3xl text-[#C6A86E] font-semibold mb-6">
-                    ${selected.price}
-                  </p>
-
-                  <button
-                    onClick={() => addToCart(selected)}
-                    className="bg-[#C6A86E] text-white py-4 rounded-full tracking-widest text-sm hover:opacity-90 transition"
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </motion.div>
+    </>
+  )}
+</AnimatePresence>
 {/* ================= PREMIUM LA PAYMENT MODAL ================= */}
 
 <AnimatePresence>
