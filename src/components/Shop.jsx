@@ -385,42 +385,45 @@ const formatCardNumber = (value) => {
       />
 
       <motion.div
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.95, opacity: 0 }}
-        transition={{ duration: 0.35 }}
-        className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6"
-      >
-        <div
-          className="
-          relative bg-white 
-          w-full max-w-5xl 
-          rounded-3xl 
-          shadow-[0_40px_80px_rgba(0,0,0,0.25)] 
-          overflow-hidden
-          max-h-[95vh] overflow-y-auto
-          grid grid-cols-1 md:grid-cols-2
-        "
-        >
-   {/* CLOSE BUTTON */}
-<div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20">
-  <button
-    onClick={() => setSelected(null)}
+  initial={{ scale: 0.95, opacity: 0 }}
+  animate={{ scale: 1, opacity: 1 }}
+  exit={{ scale: 0.95, opacity: 0 }}
+  transition={{ duration: 0.35 }}
+  className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6"
+>
+  {/* CLOSE BUTTON — OUTSIDE CARD */}
+<button
+  onClick={() => setSelected(null)}
+  className="
+    absolute
+    top-4 right-4
+    w-8 h-8
+    flex items-center justify-center
+    rounded-full
+    bg-white
+    shadow-lg
+    text-gray-500
+    text-sm
+    hover:text-black
+    transition
+    z-50
+  "
+>
+  ×
+</button>
+
+  {/* WHITE CARD */}
+  <div
     className="
-      w-8 h-8 sm:w-10 sm:h-10
-      rounded-full
-      bg-white
-      shadow-lg
-      flex items-center justify-center
-      text-base sm:text-lg
-      text-gray-600
-      hover:text-black
-      transition
+      relative bg-white 
+      w-full max-w-5xl 
+      rounded-3xl 
+      shadow-[0_40px_80px_rgba(0,0,0,0.25)] 
+      overflow-visible
+      max-h-[95vh] overflow-y-auto
+      grid grid-cols-1 md:grid-cols-2
     "
   >
-    ×
-  </button>
-</div>
 
           {/* IMAGE SIDE */}
           <div className="bg-[#f4efe7] flex items-center justify-center p-6 sm:p-10">
