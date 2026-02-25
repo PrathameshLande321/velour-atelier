@@ -403,21 +403,21 @@ const formatCardNumber = (value) => {
         "
         >
           {/* CLOSE BUTTON */}
-        <button
+<button
   onClick={() => setSelected(null)}
   className="
     absolute 
-    top-3 right-3
-    sm:top-6 sm:right-6
-    w-8 h-8 sm:w-10 sm:h-10
-    bg-white
-    rounded-full
-    shadow-md
+    top-4 right-4
+    md:top-6 md:right-6
+    w-9 h-9 md:w-10 md:h-10
     flex items-center justify-center
-    text-base sm:text-xl
-    text-gray-600 hover:text-black
+    rounded-full
+    bg-white/90
+    shadow-md
+    text-gray-600
+    hover:text-black
     transition
-    z-50
+    z-20
   "
 >
   ×
