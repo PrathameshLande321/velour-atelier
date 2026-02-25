@@ -402,26 +402,25 @@ const formatCardNumber = (value) => {
           grid grid-cols-1 md:grid-cols-2
         "
         >
-          {/* CLOSE BUTTON */}
-<button
-  onClick={() => setSelected(null)}
-  className="
-    absolute 
-    top-4 right-4
-    md:top-6 md:right-6
-    w-9 h-9 md:w-10 md:h-10
-    flex items-center justify-center
-    rounded-full
-    bg-white/90
-    shadow-md
-    text-gray-600
-    hover:text-black
-    transition
-    z-20
-  "
->
-  ×
-</button>
+   {/* CLOSE BUTTON */}
+<div className="absolute top-3 right-3 sm:top-5 sm:right-5 z-20">
+  <button
+    onClick={() => setSelected(null)}
+    className="
+      w-8 h-8 sm:w-10 sm:h-10
+      rounded-full
+      bg-white
+      shadow-lg
+      flex items-center justify-center
+      text-base sm:text-lg
+      text-gray-600
+      hover:text-black
+      transition
+    "
+  >
+    ×
+  </button>
+</div>
 
           {/* IMAGE SIDE */}
           <div className="bg-[#f4efe7] flex items-center justify-center p-6 sm:p-10">
