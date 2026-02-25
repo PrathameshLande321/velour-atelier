@@ -1,0 +1,16 @@
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f7f3ed;
+  overflow-x: hidden;
+}

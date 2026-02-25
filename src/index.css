@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/* ===============================
+   GLOBAL RESET
+================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  color: #2b2b2b;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* ===============================
+   SECTION OFFSET (Navbar spacing)
+================================ */
+
+section {
+  scroll-margin-top: 100px;
+}
+
+
+/* ===============================
+   CINEMATIC KEN BURNS EFFECT
+================================ */
+
+@keyframes kenburns {
+  0% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+.animate-kenburns {
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+
+
+/* ===============================
+   OPTIONAL: Hide Scrollbars (Clean Look)
+   Remove if you don't want hidden scrollbars
+================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3efe8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C6A86E;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b89757;
+}
+
+
+/* ===============================
+   Remove Video Inline Gap Issue
+================================ */
+
+video {
+  display: block;
+}
