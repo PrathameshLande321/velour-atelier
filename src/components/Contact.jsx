@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Reveal from "./Reveal";
 
 const Contact = () => {
   const [formData, setFormData] = useState({

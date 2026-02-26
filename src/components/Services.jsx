@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // ✅ Added
+import { useNavigate } from "react-router-dom"; 
+import Reveal from "./Reveal";
 
 import img1 from "../assets/img 5.webp";
 import img2 from "../assets/img 6.webp";
@@ -37,7 +38,7 @@ const services = [
 ];
 
 const Services = () => {
-  const navigate = useNavigate(); // ✅ Added
+  const navigate = useNavigate(); 
 
   return (
     <section
@@ -57,15 +58,14 @@ const Services = () => {
 
       {/* Grid */}
       <div className="grid gap-8 md:gap-10 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
-        {services.map((service, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative bg-white rounded-xl overflow-hidden border border-[#ece7df] hover:shadow-md transition-all duration-400 group flex flex-col"
-          >
+      {services.map((service, index) => (
+  <Reveal key={index} delay={index * 0.15}>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+className="relative bg-white rounded-xl overflow-hidden border border-[#ece7df] hover:shadow-md transition-all duration-400 group flex flex-col h-[420px] md:h-[440px]"
+    >
             {/* Badge */}
             {service.popular && (
               <div className="absolute top-3 left-3 bg-[#C6A86E] text-black text-[10px] uppercase tracking-[0.2em] px-3 py-1 rounded-full z-10">
@@ -74,16 +74,16 @@ const Services = () => {
             )}
 
             {/* Image */}
-            <div className="overflow-hidden">
+            <div className="overflow-hidden bg-[#f6f3ee] flex items-center justify-center">
               <img
-                src={service.image}
-                alt={service.title}
-                className="w-full h-48 md:h-52 object-cover transition duration-700 group-hover:scale-105"
-              />
+  src={service.image}
+  alt={service.title}
+  className="w-full h-52 md:h-56 object-cover transition duration-700"
+/>
             </div>
 
             {/* Content */}
-            <div className="p-5 text-center flex flex-col flex-grow">
+            <div className="p-5 text-center flex flex-col flex-1">
 
               <h3 className="font-[Playfair_Display] text-base font-medium mb-2 leading-snug">
                 {service.title}
@@ -93,19 +93,20 @@ const Services = () => {
                 {service.desc}
               </p>
 
-              <p className="text-lg font-medium tracking-wide text-[#1a1a1a] mb-4">
+            <p className="text-lg font-medium tracking-wide text-[#1a1a1a] mb-5">
                 {service.price}
               </p>
 
               <button
-                onClick={() => navigate("/appointment")}
-                className="mt-auto border border-[#C6A86E] px-5 py-2 rounded-full uppercase tracking-[0.15em] text-[10px] hover:bg-[#C6A86E] hover:text-black transition duration-400"
-              >
-                Book Now
-              </button>
+  onClick={() => navigate("/appointment")}
+  className="mt-auto border border-[#C6A86E] px-5 py-2 rounded-full uppercase tracking-[0.15em] text-[10px] hover:bg-[#C6A86E] hover:text-black transition duration-400 w-full"
+>
+  Book Now
+</button>
 
             </div>
           </motion.div>
+          </Reveal>
         ))}
       </div>
     </section>

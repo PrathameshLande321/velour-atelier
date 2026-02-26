@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import introVideo from "../assets/salon background .mp4";
+import Reveal from "./Reveal";
 
 import work1 from "../assets/img 20.webp";
 import work2 from "../assets/img 23.webp";
@@ -75,7 +76,7 @@ const startAuto = () => {
   stopAuto();
   intervalRef.current = setInterval(() => {
     setIndex((prev) => (prev + 1) % testimonials.length);
-  }, 6000);
+  }, 9000);
 };
 
 /* STOP AUTO */
@@ -95,10 +96,7 @@ useEffect(() => {
 const nextSlide = () => {
   stopAuto();
   setIndex((prev) => (prev + 1) % testimonials.length);
-
-  setTimeout(() => {
-    startAuto();
-  }, 1000); // resume after 1s
+  startAuto();
 };
 
 const prevSlide = () => {
@@ -106,11 +104,9 @@ const prevSlide = () => {
   setIndex((prev) =>
     prev === 0 ? testimonials.length - 1 : prev - 1
   );
-
-  setTimeout(() => {
-    startAuto();
-  }, 1000); // resume after 1s
+  startAuto();
 };
+
     const handleRedirect = () => {
   if (slides[index].button === "DISCOVER") {
     const section = document.getElementById("wardrobe");
@@ -126,7 +122,7 @@ const prevSlide = () => {
   return (
     <section
       id="aboutus"
-      className="bg-white py-20 md:py-32 px-6 md:px-16 scroll-mt-28"
+      className="bg-white py-20 md:py-32 px-0 md:px-16 scroll-mt-28 overflow-hidden"
     >
 
       {/* INTRO */}
@@ -146,14 +142,15 @@ const prevSlide = () => {
       </div>
 
 {/* VIDEO */}
-<motion.div
-  initial={{ opacity: 0, y: 40 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8 }}
-  viewport={{ once: true }}
+
+  <motion.div
   className="max-w-6xl mx-auto mb-28 px-0 sm:px-6"
+  initial={{ opacity: 0 }}
+  whileInView={{ opacity: 1 }}
+  viewport={{ once: true, amount: 0.25 }}
+  transition={{ duration: 1.8, ease: "easeOut" }}
 >
-  <div className="rounded-2xl overflow-hidden shadow-xl">
+  <div className="relative rounded-2xl overflow-hidden shadow-2xl">
     <video
       src={introVideo}
       autoPlay
@@ -162,16 +159,17 @@ const prevSlide = () => {
       playsInline
       preload="auto"
       className="
-        w-full
-        h-[65vh]        /* Mobile height */
-        sm:h-[75vh]     /* Tablet */
-        md:h-[500px]    /* Desktop */
-        object-cover
-        scale-[1.08]    /* Crops tiny top border */
-      "
+  w-full
+  h-[80vh] md:h-[520px]
+  object-cover
+  scale-[1.12]
+  origin-center
+  translate-y-[1px]
+"
     />
   </div>
 </motion.div>
+
 
 {/* ================= PREMIUM FULL-WIDTH STATS ================= */}
 
@@ -234,130 +232,135 @@ const prevSlide = () => {
     </div>
   </div>
 </section>
+{/* ================= TESTIMONIAL SLIDER ================= */}
 
-      {/* ================= TESTIMONIAL SLIDER ================= */}
+<Reveal>
+  <div id="testimonials" className="scroll-mt-28 text-center mb-12">
+    <h3 className="font-[Playfair_Display] text-2xl md:text-3xl font-medium">
+      Client Testimonials
+    </h3>
+  </div>
 
-      <div id="testimonials" className="scroll-mt-28 text-center mb-12">
-        <h3 className="font-[Playfair_Display] text-2xl md:text-3xl font-medium">
-          Client Testimonials
-        </h3>
-      </div>
+  <div className="max-w-4xl mx-auto relative">
 
-     <div className="max-w-4xl mx-auto relative">
-
-      
-        {/* LEFT ARROW */}
-<button
-  onClick={prevSlide}
-  className="
-    absolute -left-16 top-1/2 -translate-y-1/2 z-20
-    hidden md:flex
-    w-12 h-12 rounded-full
-    bg-white shadow-lg border border-[#C6A86E]
-    items-center justify-center
-    text-lg
-    hover:bg-[#C6A86E] hover:text-white
-    transition duration-300
-  "
->
-  ‹
-</button>
-
-     {/* RIGHT ARROW */}
-<button
-  onClick={nextSlide}
-  className="
-    absolute -right-16 top-1/2 -translate-y-1/2 z-20
-    hidden md:flex
-    w-12 h-12 rounded-full
-    bg-white shadow-lg border border-[#C6A86E]
-    items-center justify-center
-    text-lg
-    hover:bg-[#C6A86E] hover:text-white
-    transition duration-300
-  "
->
-  ›
-</button>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.8}
-            onDragEnd={(e, info) => {
-              const threshold = 80;
-              if (info.offset.x < -threshold) nextSlide();
-              else if (info.offset.x > threshold) prevSlide();
-            }}
-            initial={{ opacity: 0, x: 80 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -80 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-            className="bg-[#f6f3ee] p-8 md:p-12 rounded-2xl shadow-lg text-center cursor-grab active:cursor-grabbing"
-          >
-            <div className="flex justify-center mb-6">
-              <img
-                src={testimonials[index].image}
-                alt="client"
-                className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-full border-2 border-[#C6A86E] shadow-md"
-              />
-            </div>
-
-            <div className="mb-4 text-[#C6A86E] text-lg tracking-wide">
-              {"★".repeat(testimonials[index].rating)}
-              {"☆".repeat(5 - testimonials[index].rating)}
-            </div>
-
-            <p className="text-gray-700 text-sm md:text-base mb-6 leading-relaxed">
-              {testimonials[index].text}
-            </p>
-
-            <h4 className="font-[Playfair_Display] text-lg">
-              {testimonials[index].name}
-            </h4>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* MOBILE ARROWS */}
-<div className="flex justify-center gap-6 mt-6 md:hidden">
-  <button
-    onClick={prevSlide}
-    className="w-9 h-9 rounded-full border border-[#C6A86E]
-               flex items-center justify-center
-               text-sm hover:bg-[#C6A86E] hover:text-white
-               transition duration-300"
-  >
-    ‹
-  </button>
-
-  <button
-    onClick={nextSlide}
-    className="w-9 h-9 rounded-full border border-[#C6A86E]
-               flex items-center justify-center
-               text-sm hover:bg-[#C6A86E] hover:text-white
-               transition duration-300"
-  >
-    ›
-  </button>
-</div>
-
-{/* PREMIUM DOTS */}
-<div className="flex justify-center items-center gap-5 mt-10">
-  {testimonials.map((_, i) => (
+    {/* LEFT ARROW */}
     <button
-      key={i}
-      onClick={() => setIndex(i)}
-      className={`relative transition-all duration-500 ease-out ${
-        i === index
-          ? "w-3 h-3 bg-[#C6A86E] scale-110"
-          : "w-3 h-3 bg-gray-300 hover:bg-gray-400"
-      } rounded-full`}
-    />
-  ))}
-</div>
-      </div>
+      onClick={prevSlide}
+      className="
+        absolute -left-16 top-1/2 -translate-y-1/2 z-20
+        hidden md:flex
+        w-12 h-12 rounded-full
+        bg-white shadow-lg border border-[#C6A86E]
+        items-center justify-center
+        text-lg
+        hover:bg-[#C6A86E] hover:text-white
+        transition duration-300
+      "
+    >
+      ‹
+    </button>
+
+    {/* RIGHT ARROW */}
+    <button
+      onClick={nextSlide}
+      className="
+        absolute -right-16 top-1/2 -translate-y-1/2 z-20
+        hidden md:flex
+        w-12 h-12 rounded-full
+        bg-white shadow-lg border border-[#C6A86E]
+        items-center justify-center
+        text-lg
+        hover:bg-[#C6A86E] hover:text-white
+        transition duration-300
+      "
+    >
+      ›
+    </button>
+
+    <AnimatePresence mode="wait">
+     <motion.div
+  key={index}
+  drag="x"
+  dragConstraints={{ left: 0, right: 0 }}
+  dragElastic={0.6}
+  onDragEnd={(e, info) => {
+    const threshold = 80;
+    if (info.offset.x < -threshold) nextSlide();
+    else if (info.offset.x > threshold) prevSlide();
+  }}
+  initial={{ opacity: 0, x: 120 }}
+  animate={{ opacity: 1, x: 0 }}
+  exit={{ opacity: 0, x: -120 }}
+  transition={{
+    duration: 1.1,
+    ease: [0.22, 1, 0.36, 1]
+  }}
+  className="bg-[#f6f3ee] p-8 md:p-12 rounded-2xl shadow-lg text-center cursor-grab active:cursor-grabbing"
+>
+        <div className="flex justify-center mb-6">
+          <img
+            src={testimonials[index].image}
+            alt="client"
+            className="w-16 h-16 md:w-20 md:h-20 object-cover rounded-full border-2 border-[#C6A86E] shadow-md"
+          />
+        </div>
+
+        <div className="mb-4 text-[#C6A86E] text-lg tracking-wide">
+          {"★".repeat(testimonials[index].rating)}
+          {"☆".repeat(5 - testimonials[index].rating)}
+        </div>
+
+        <p className="text-gray-700 text-sm md:text-base mb-6 leading-relaxed">
+          {testimonials[index].text}
+        </p>
+
+        <h4 className="font-[Playfair_Display] text-lg">
+          {testimonials[index].name}
+        </h4>
+      </motion.div>
+    </AnimatePresence>
+
+    {/* MOBILE ARROWS */}
+    <div className="flex justify-center gap-6 mt-6 md:hidden">
+      <button
+        onClick={prevSlide}
+        className="w-9 h-9 rounded-full border border-[#C6A86E]
+                   flex items-center justify-center
+                   text-sm hover:bg-[#C6A86E] hover:text-white
+                   transition duration-300"
+      >
+        ‹
+      </button>
+
+      <button
+        onClick={nextSlide}
+        className="w-9 h-9 rounded-full border border-[#C6A86E]
+                   flex items-center justify-center
+                   text-sm hover:bg-[#C6A86E] hover:text-white
+                   transition duration-300"
+      >
+        ›
+      </button>
+    </div>
+
+    {/* PREMIUM DOTS */}
+    <div className="flex justify-center items-center gap-5 mt-10">
+      {testimonials.map((_, i) => (
+        <button
+          key={i}
+          onClick={() => setIndex(i)}
+          className={`relative transition-all duration-500 ease-out ${
+            i === index
+              ? "w-3 h-3 bg-[#C6A86E] scale-110"
+              : "w-3 h-3 bg-gray-300 hover:bg-gray-400"
+          } rounded-full`}
+        />
+      ))}
+    </div>
+
+  </div>
+  </Reveal>
+
     </section>
   );
 };

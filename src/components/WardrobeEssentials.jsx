@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import Reveal from "./Reveal";
 import img1 from "../assets/img 12.webp";
 import img2 from "../assets/img 13.webp";
 import img3 from "../assets/img 10.webp";

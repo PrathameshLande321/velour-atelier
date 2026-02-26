@@ -4,6 +4,7 @@ import { FaCcVisa, FaCcMastercard, FaCcAmex } from "react-icons/fa";
 import visaLogo from "../assets/VISA-logo.svg";
 import masterLogo from "../assets/mastercard-logo.svg";
 import amexLogo from "../assets/american-express-logo.svg";
+import Reveal from "./Reveal";
 
 import serum from "../assets/img 15.webp";
 import mask from "../assets/img 17.webp";
@@ -201,20 +202,22 @@ const formatCardNumber = (value) => {
   return (
     <section
       id="shop"
-      className="bg-[#f7f3ed] py-28 px-6 md:px-16 relative overflow-hidden"
+      className="bg-[#f7f3ed] py-28 px-0 md:px-16 relative overflow-hidden"
     >
       {/* TITLE */}
-      <div className="text-center mb-20">
-        <h4 className="italic text-[#C6A86E] mb-3 font-[Cormorant_Garamond]">
-          Exclusive Collection
-        </h4>
-        <h2 className="text-4xl md:text-6xl font-[Playfair_Display]">
-          The Velour Atelier Shop
-        </h2>
-      </div>
+      <Reveal>
+  <div className="text-center mb-20">
+    <h4 className="italic text-[#C6A86E] mb-3 font-[Cormorant_Garamond]">
+      Exclusive Collection
+    </h4>
+    <h2 className="text-4xl md:text-6xl font-[Playfair_Display]">
+      The Velour Atelier Shop
+    </h2>
+  </div>
+</Reveal>
 
       {/* SLIDER */}
-      <div className="relative max-w-7xl mx-auto">
+      <div className="relative max-w-[1400px] mx-auto md:px-12">
         <button
           onClick={scrollLeft}
           className="absolute left-0 top-1/2 -translate-y-1/2 z-20
@@ -233,21 +236,37 @@ const formatCardNumber = (value) => {
           ›
         </button>
 
-        <div
-          ref={scrollRef}
-          className="flex gap-10 overflow-x-hidden scroll-smooth"
-        >
-          {products.map((product) => (
-            <motion.div
+<div
+  ref={scrollRef}
+  className="
+    flex
+    gap-0 md:gap-10 lg:gap-14
+    overflow-hidden
+    snap-x snap-mandatory
+    scroll-smooth
+    no-scrollbar
+  "
+>
+          {products.map((product, i) => (
+  <Reveal key={product.id} delay={i * 0.12}>
+    <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               whileHover={{ y: -12 }}
-              className="flex-shrink-0 w-[85%] sm:w-[70%] md:w-[320px]
-           bg-white rounded-2xl shadow-md hover:shadow-2xl
-           transition-all duration-500
-           flex flex-col"
+className="
+flex-shrink-0
+w-[100vw] md:w-[340px] lg:w-[360px]
+snap-center
+bg-white
+rounded-2xl
+shadow-md hover:shadow-2xl
+transition-all duration-500
+flex flex-col
+h-[520px] md:h-[540px]
+"
+
             >
               <div className="overflow-hidden rounded-t-2xl">
                 <motion.img
@@ -287,6 +306,7 @@ const formatCardNumber = (value) => {
                 </div>
               </div>
             </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
